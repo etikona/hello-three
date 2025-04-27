@@ -1,7 +1,11 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
 // Initialize the scene
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-const cubeMaterial = new THREE.MeshBasicMaterial({ color: "#fff" });
+const cubeMaterial = new THREE.MeshBasicMaterial({
+  color: "blue",
+});
 
 // add object to the scene
 const scene = new THREE.Scene();
@@ -11,9 +15,9 @@ scene.add(cubeMesh);
 
 // Initialize the camera
 const camera = new THREE.PerspectiveCamera(
-  75,
+  35,
   window.innerWidth / window.innerHeight,
-  0.1,
+  0.001,
   30
 );
 
@@ -24,4 +28,15 @@ const canvas = document.querySelector("canvas.threejs");
 const renderer = new THREE.WebGLRenderer({ canvas: canvas });
 
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.render(scene, camera);
+//Initialize the control
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.autoRotate = true;
+
+const animate = () => {
+  controls.update();
+  window.requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+};
+
+animate();
