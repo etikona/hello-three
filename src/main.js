@@ -14,11 +14,21 @@ const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
 // Initialize the camera
-const camera = new THREE.PerspectiveCamera(
-  35,
-  window.innerWidth / window.innerHeight,
-  0.001,
-  30
+// const camera = new THREE.PerspectiveCamera(
+//   35,
+//   window.innerWidth / window.innerHeight,
+//   0.001,
+//   30
+// );
+const aspectRatio = window.innerWidth / window.innerHeight;
+
+const camera = new THREE.OrthographicCamera(
+  -1 * aspectRatio,
+  1 * aspectRatio,
+  1,
+  -1,
+  0.1,
+  200
 );
 
 camera.position.z = 5;
